@@ -24,3 +24,13 @@ node_modules/
 
 # Docker
 *.local.yml
+
+*.log
+
+*.egg-info/
+dist/
+build/
+
+/coverage
+
+
