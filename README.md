@@ -85,12 +85,12 @@ GET /events · POST /events · GET /events/{id} · PUT /events/{id} · DELETE /e
   2) GET /organization/event/{organization_id} (org + events)
   3) GraphQL POST /graphql (query events(limit:), rsvps(limit:))
    ```bash
-   uery {
+   query {
   events(limit: 5) { id name date rsvpCount }
   rsvps(limit: 5) { id name status }
    }
    ```
-  5) q
+
 
 ## Tech Stack
 
