@@ -1,0 +1,53 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: cloud9_dev
+    ports: ["5432:3306"]  # host:container (left intentionally 5432 to avoid conflicting with local 3306)
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  event-service:
+    build: ../../services/event-service
+    env_file:
+      - ../../services/event-service/.env
+    ports: ["8001:8000"]
+    depends_on: [db]
+
+  organization-service:
+    build: ../../services/organization-service
+    env_file:
+      - ../../services/organization-service/.env
+    ports: ["8002:8000"]
+    depends_on: [db]
+
+  rsvp-service:
+    build: ../../services/rsvp-service
+    env_file:
+      - ../../services/rsvp-service/.env
+    ports: ["8003:8000"]
+    depends_on: [db]
+
+  composite-service:
+    build: ../../services/composite-service
+    env_file:
+      - ../../services/composite-service/.env
+    ports: ["8004:8000"]
+    depends_on: [event-service, organization-service, rsvp-service]
+
+  frontend:
+    build: ../../frontend
+    environment:
+      # make FE talk to local services
+      REACT_APP_EVENTS_URL: "http://localhost:8001"
+      REACT_APP_ORGS_URL:   "http://localhost:8002"
+      REACT_APP_RSVP_URL:   "http://localhost:8003"
+      REACT_APP_COMPOSITE_URL: "http://localhost:8004"
+    ports: ["3000:3000"]
+    depends_on: [composite-service]
