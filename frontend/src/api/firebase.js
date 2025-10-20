@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDwFpAbfWNFJssImlmPj6EBw3HFXPtOlTE",
+    apiKey: "APIkey",
     authDomain: "columbia-events-management.firebaseapp.com",
     projectId: "columbia-events-management",
     storageBucket: "columbia-events-management.appspot.com",
