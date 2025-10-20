@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.env
+
+# Node
+node_modules/
+.npm/
+.cache/
+*.log
+.env.local
+.env.*.local
+/build
+
+# Docker
+*.local.yml
